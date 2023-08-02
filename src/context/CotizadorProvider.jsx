@@ -1,21 +1,29 @@
-import {createContext} from 'react'
+import {createContext, useState} from 'react'
 
 const CotizadorContex = createContext()
 
 //creamos el provider donde se define el state effects y crear funciones
 const CotizadorProvider = ({children}) =>{ //hasta el return se pueden definir states, effects etc
 
-    const hola= 'Hola Guillermo'    //declaramos una variable pero puede ser una funcion
-    const fnHolaMundo = () => {
-        console.log('Hola mundo desde una funcion')
+    const [datos, SetDatos] = useState({
+        marca:'',
+        year:'',
+        plan:''
+    })
+
+    const handleChange = e =>{
+        SetDatos({
+            ...datos,
+            [e.target.name] : e.target.value
+        })    
     }
 
     return(
         <CotizadorContex.Provider
         //el value siempre va a ser un objeto
         value={{
-            hola,
-            fnHolaMundo
+            datos,
+            handleChange
         }}>
             {children}
         </CotizadorContex.Provider>
