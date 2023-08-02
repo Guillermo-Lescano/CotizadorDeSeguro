@@ -1,13 +1,19 @@
 import React from 'react'
-import { Fragment } from 'react'
+import { Fragment, useContext } from 'react'
 import {MARCAS, YEARS, PLANES} from '../constants'
+import CotizadorContex from '../context/CotizadorProvider'
 
 const Formulario = () => {
+    
+    const {hola, fnHolaMundo} = useContext(CotizadorContex) //este CotizadorContex tiene acceso a lo que esta dentro del CotizadorContex.Provider
+    console.log(hola)
+
+    fnHolaMundo()
   return (
     <>
     <form>
         <div className='my-5'>
-            <label className='block mb-3 font-bold text-gray-400 '>Marca</label>
+            <label className='block mb-3 font-bold text-gray-400 uppercase'>Marca</label>
             <select name="marca" className='w-full p-3 bg-white border border-gray-200'>
                 <option value="">--Seleccione una Marca--</option>
                 {MARCAS.map(marca =>
@@ -45,7 +51,7 @@ const Formulario = () => {
                 ))}
             </div>
         </div>
-        <input type="submit" className='w-full bg-indigo-500 hover:bg-indigo-600 transition-colors 
+        <input type="submit" className='w-full bg-indigo-500 hov er:bg-indigo-600 transition-colors 
         text-white cursor-pointer p-3 uppercase font-bold' value='Cotizar' />
     </form>
     </>
