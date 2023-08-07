@@ -7,7 +7,7 @@ import Error from './Error'
 
 const Formulario = () => {
     
-    const {datos, handleChange, error, setError} = useCotizador()
+    const {datos, handleChange, error, setError, cotizarSeguro} = useCotizador()
 
     const handleSubmit = e =>{
         e.preventDefault()
@@ -17,7 +17,7 @@ const Formulario = () => {
             return
         }
         setError('')
-        //TODO: Cotizar
+        cotizarSeguro()
     }
 
     //const {modal, cambiarEstado /*hola*/} = useContext(CotizadorContex) //este CotizadorContex tiene acceso a lo que esta dentro del CotizadorContex.Provider
@@ -70,7 +70,7 @@ const Formulario = () => {
                 {PLANES.map(plan =>(
                     <Fragment key={plan.id}>
                         <label>{plan.nombre}</label>
-                        <input type='radio' name='plan' valu e={plan.id} onChange={e => handleChange(e)}></input>
+                        <input type='radio' name='plan' value={plan.id} onChange={e => handleChange(e)}></input>
                     </Fragment>
                 ))}
             </div>
