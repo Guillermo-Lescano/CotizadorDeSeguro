@@ -3,10 +3,22 @@ import { Fragment, useContext } from 'react'
 import {MARCAS, YEARS, PLANES} from '../constants'
 //import CotizadorContex from '../context/CotizadorProvider'
 import useCotizador from '../hooks/useCotizador'
+import Error from './Error'
 
 const Formulario = () => {
     
-    const {datos, handleChange} = useCotizador()
+    const {datos, handleChange, error, setError} = useCotizador()
+
+    const handleSubmit = e =>{
+        e.preventDefault()
+
+        if(Object.values(datos).includes('')){
+            setError('Campos Obligatorios')
+            return
+        }
+        setError('')
+        //TODO: Cotizar
+    }
 
     //const {modal, cambiarEstado /*hola*/} = useContext(CotizadorContex) //este CotizadorContex tiene acceso a lo que esta dentro del CotizadorContex.Provider
 /*     const {modal, cambiarEstado /*hola} = useCotizador()
@@ -16,7 +28,8 @@ const Formulario = () => {
     {/* <button onClick={cambiarEstado}>
         Cambiar estado de modal 
     </button> */}
-    <form>
+    {error && <Error />}
+    <form onSubmit={handleSubmit}>
         <div className='my-5'>
             <label className='block mb-3 font-bold text-gray-400 uppercase'>Marca</label>
             <select name="marca" 
@@ -57,7 +70,7 @@ const Formulario = () => {
                 {PLANES.map(plan =>(
                     <Fragment key={plan.id}>
                         <label>{plan.nombre}</label>
-                        <input type='radio' name='plan' value={plan.id} onChange={e => handleChange(e)}></input>
+                        <input type='radio' name='plan' valu e={plan.id} onChange={e => handleChange(e)}></input>
                     </Fragment>
                 ))}
             </div>

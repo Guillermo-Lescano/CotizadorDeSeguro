@@ -5,14 +5,16 @@ const CotizadorContex = createContext()
 //creamos el provider donde se define el state effects y crear funciones
 const CotizadorProvider = ({children}) =>{ //hasta el return se pueden definir states, effects etc
 
-    const [datos, SetDatos] = useState({
+    const [datos, setDatos] = useState({    //puedo almacenar todas las variables en un solo objeto
         marca:'',
         year:'',
         plan:''
     })
 
+    const [error, setError] = useState('')
+
     const handleChange = e =>{
-        SetDatos({
+        setDatos({
             ...datos,
             [e.target.name] : e.target.value
         })    
@@ -23,7 +25,9 @@ const CotizadorProvider = ({children}) =>{ //hasta el return se pueden definir s
         //el value siempre va a ser un objeto
         value={{
             datos,
-            handleChange
+            handleChange,
+            error,
+            setError
         }}>
             {children}
         </CotizadorContex.Provider>
