@@ -13,7 +13,8 @@ const CotizadorProvider = ({children}) =>{ //hasta el return se pueden definir s
     })
 
     const [error, setError] = useState('')
-    const [resultado, setResultado] = useState('')
+    const [resultado, setResultado] = useState(0)
+    const [cargando, setCargando] = useState(false)
 
     const handleChange = e =>{
         setDatos({
@@ -28,7 +29,6 @@ const CotizadorProvider = ({children}) =>{ //hasta el return se pueden definir s
 
         //Obtener una diferencia de años
         const diferencia = obtenerDiferenciaYear(datos.year)
-        console.log(diferencia)
 
         //hay que restar un 3% por cada antiguedad de año
         resultado -= ((diferencia * 3) * resultado) / 100
@@ -49,7 +49,11 @@ const CotizadorProvider = ({children}) =>{ //hasta el return se pueden definir s
         resultado = formatearDinero(resultado)
         console.log('format:', resultado)
 
-        setResultado(resultado)
+        setCargando(true)
+        setTimeout(()=>{
+            setResultado(resultado)
+            setCargando(false)
+        }, 3000)
     }
 
     return(
@@ -61,7 +65,9 @@ const CotizadorProvider = ({children}) =>{ //hasta el return se pueden definir s
             error,
             setError,
             cotizarSeguro,
-            setResultado
+            setResultado,
+            resultado,
+            cargando
         }}>
             {children}
         </CotizadorContex.Provider>
